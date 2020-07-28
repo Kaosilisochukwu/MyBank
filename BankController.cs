@@ -9,14 +9,16 @@ namespace MyBank
         public static void RunBank()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Welcome to the International Bank of Rivendell, Middle Earth\nHow Can We help you today?");
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("**********************************************************************************************");
+            Console.WriteLine("*  Welcome to the International Bank of Rivendell, Middle Earth. How Can We help you today?  *");
+            Console.WriteLine("**********************************************************************************************");
             Register:
+            Console.ForegroundColor = ConsoleColor.Blue;            
             Console.WriteLine("\t\tTo Register an account, press 'R'\n\t\tTo log into an existing account press 'L'\n\t\tTo exit type 'E'");
-            if (Console.ReadLine().ToLower() == "e")
-                goto End;
             string registerChoice = Console.ReadLine().ToLower();
-            while(registerChoice != "r" && registerChoice != "l" && registerChoice != "e")
+            if (registerChoice == "e")
+                goto End;
+            while (registerChoice != "r" && registerChoice != "l" && registerChoice != "e")
             {
                 Console.WriteLine("Please type in a correct option");
                 goto Register;
@@ -30,6 +32,7 @@ namespace MyBank
             else if(registerChoice == "l")
             {
                 LoginDetails:
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Please type in your valid login Id and Email to login or 'E' to exit");
                 Console.WriteLine("\t\t\tEmail: ");
                 string customerEmail = Console.ReadLine();
@@ -44,11 +47,15 @@ namespace MyBank
                 }
                 Customer currentCustomer = Customer.GetCurrentCustomer(custormerId, customerEmail);
                 ActionCenter:
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\t\tTo create an account, press 'O'\n\t\tTo make deposit type 'D'\n\t\tTo make Withdrawal, type 'W'\n\t\tTo transfer Funds, type 'T'\n\t\tTo check your balance, type 'C'\n\t\tTo get transaction Details type 'G'\n\t\tTo logout, type 'E'");
                 string choice = Console.ReadLine();
+                if (choice.ToLower() == "e")
+                    goto End;
                 if(choice.ToLower() == "o")
                 {
                     AccountType:
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Account type: ");
                     Console.WriteLine("\tfor savings account, type 'S'\n\tfor current account, type 'C'\n\tto exit, type 'E'");
                     string input = Console.ReadLine().ToLower();
@@ -60,6 +67,7 @@ namespace MyBank
                     if (accountType == "exit")
                         goto ActionCenter;
                     InitialDeposit:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("Initial Deposit: \n\t1000 and above for current account\n\t100 and above for savings account\n\tType '0' to exit");
                     decimal initalDeposit;
                     bool isDecimal = decimal.TryParse(Console.ReadLine(), out initalDeposit);
@@ -89,6 +97,7 @@ namespace MyBank
                 else if (choice.ToLower() == "d")
                 {
                     DepositPoint:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Please enter a minimum of '50'  or 'E' to exit");
                     decimal depositAmount = 0;
                     string depositAmountString = Console.ReadLine();
@@ -119,6 +128,7 @@ namespace MyBank
                 else if (choice.ToLower() == "w")
                 {
                     WithdrawalPoint:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Please enter a valid amount to withdraw or 'E' to exit");
                     decimal withdrawalAmount = 0;
                     string withdrawalAmountString = Console.ReadLine();
@@ -155,6 +165,7 @@ namespace MyBank
                 else if (choice.ToLower() == "t")
                 {
                     TranferPoint:
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("Please enter a valid amount to withdraw or 'E' to exit");
                     decimal withdrawalAmount = 0;
                     string withdrawalAmountString = Console.ReadLine();
@@ -163,6 +174,7 @@ namespace MyBank
                     if (decimal.TryParse(withdrawalAmountString, out withdrawalAmount))
                     {
                         BenefactorAccountNumber:
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine("Please enter your account number or type 'E'  to exit");
                         string bankAccountString = Console.ReadLine();
                         if (bankAccountString.ToLower() == "e")
@@ -201,6 +213,7 @@ namespace MyBank
                 else if (choice.ToLower() == "c")
                 {
                     CustomerAccountNumber:
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("Please enter your account number or type 'E'  to exit");
                     string bankAccountString = Console.ReadLine();
                     if (bankAccountString.ToLower() == "e")
@@ -216,6 +229,7 @@ namespace MyBank
                 else if (choice.ToLower() == "g")
                 {
                     CustomerAccountNumber:
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Please enter your account number or type 'E'  to exit");
                     string bankAccountString = Console.ReadLine();
                     if (bankAccountString.ToLower() == "e")
@@ -238,7 +252,10 @@ namespace MyBank
                 }
             }
             End:
-            Console.WriteLine("Thanks for banking with us. Do visit us again");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("*  Thanks for banking with us. Do visit us again  *");
+            Console.WriteLine("***************************************************");
         }
 
 
