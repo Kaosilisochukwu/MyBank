@@ -68,7 +68,6 @@ namespace MyBank
             foreach (var customer in AllCustomers)
             {
                 Console.WriteLine($"{customer.CustomerId}\t {customer.FirstName}\t {customer.LastName}\t {customer.Email}");
-
             }
         }
 
@@ -104,7 +103,36 @@ namespace MyBank
         {
             Console.WriteLine($"You have {AccountBalance} left in your account {AccountNumber}");
         }
+        public static bool bankAccountExists(string accountNumberstring)
+        {
+            bool bankAccountExist = false;
+            if (AllBankAccounts.Count < 1)
+            {
+                return bankAccountExist;
+            }
+            if (int.TryParse(accountNumberstring, out int accountNumber))
+            {
+                foreach (var bankAccount in AllBankAccounts)
+                {
+                    if (bankAccount.AccountNumber == accountNumber)
+                        bankAccountExist = true;
+                }
+            }
+            else
+                bankAccountExist = false;
 
+            return bankAccountExist;
+        }
+        public static BankAccount GetBankAccount(int accountNumber)
+        {
+            BankAccount customerBankAccount = null;
+           foreach (var account in AllBankAccounts)
+           {
+                if (accountNumber == account.AccountNumber)
+                    customerBankAccount = account;
+           }
+            return customerBankAccount;
+        }
 
     }
 }
