@@ -17,8 +17,6 @@ namespace MyBank
             accountNumber += 123;
             AllBankAccounts.Add(this);
             AllCustomers.Add(customer);
-            //BankAccount.accou
-            //BankTransactions newAccount = new BankTransactions()
             MakeDeposite(this, initialDeposit, DateTime.Now, "initial Deposit");
         }
 
@@ -29,7 +27,9 @@ namespace MyBank
         public int CustomerId { get; }
 
         private List<BankTransactions> AllTransactions = new List<BankTransactions>();
+
         private static List<BankAccount> AllBankAccounts = new List<BankAccount>();
+
         private static List<Customer> AllCustomers = new List<Customer>();
         public void MakeDeposite(BankAccount account, decimal amount, DateTime date, string note)
         {
@@ -45,6 +45,22 @@ namespace MyBank
                 Console.WriteLine($"{transction.AccountType}\t {transction.AccountNumber}\t {transction.CustomerName}\t {transction.AccountBalance} ");
 
             }
+        }
+        public static List<BankAccount> getAllAccounts()
+        {
+            return BankAccount.AllBankAccounts;
+        }
+        public static BankAccount Login(int accountNumber)
+        {
+            BankAccount bankAccount = null;
+            foreach (var account in AllBankAccounts)
+            {
+                if (account.AccountNumber == accountNumber)
+                {
+                    return account;
+                }                
+            }
+            return bankAccount;
         }
 
         public static void GetAllCustomers()
@@ -65,13 +81,13 @@ namespace MyBank
 
         public void TransferFunds(BankAccount recipient, decimal amount, DateTime date, string note)
         {
-            //AccountBalance -= amount;
             foreach (var account in AllBankAccounts)
             {
                 if(account.AccountNumber == recipient.AccountNumber)
                 {
                     MakeWithdrawal(this, amount, DateTime.Now, note);
                     recipient.MakeDeposite(recipient, amount, DateTime.Now, note);
+                    Console.WriteLine($"You have successfully transfered {amount} to {recipient.CustomerName}\n\t\tAccount balance: {AccountBalance}");
                     break;
                 }
             }
@@ -86,7 +102,7 @@ namespace MyBank
         }
         public void GetAccountBalance()
         {
-            Console.WriteLine($"You have {AccountBalance} left in your account {this.AccountNumber}");
+            Console.WriteLine($"You have {AccountBalance} left in your account {AccountNumber}");
         }
 
 

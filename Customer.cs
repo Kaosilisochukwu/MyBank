@@ -13,12 +13,11 @@ namespace MyBank
             LastName = lastName;
             Email = email;
             CustomerId = customerId;
-            customerId++;
+            customerId += 1;
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public int CustomerId { get; }
-
     }
 }
