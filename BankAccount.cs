@@ -46,23 +46,8 @@ namespace MyBank
 
             }
         }
-        public static List<BankAccount> getAllAccounts()
-        {
-            return BankAccount.AllBankAccounts;
-        }
-        public static BankAccount Login(int accountNumber)
-        {
-            BankAccount bankAccount = null;
-            foreach (var account in AllBankAccounts)
-            {
-                if (account.AccountNumber == accountNumber)
-                {
-                    return account;
-                }                
-            }
-            return bankAccount;
-        }
 
+        //TO PRING ALL CUSTOMERS TO THE CONSOLE
         public static void GetAllCustomers()
         {
             foreach (var customer in AllCustomers)
@@ -70,14 +55,14 @@ namespace MyBank
                 Console.WriteLine($"{customer.CustomerId}\t {customer.FirstName}\t {customer.LastName}\t {customer.Email}");
             }
         }
-
+        //TO MAKE WITHDRAWAL
         public void MakeWithdrawal(BankAccount account, decimal amount, DateTime date, string note)
         {
             AccountBalance -= amount;
             BankTransactions transaction = new BankTransactions(account, amount, AccountBalance, note, date);
             AllTransactions.Add(transaction);
         }
-
+        //TO TRANSFER FUNDS FROM ONE ACCOUNT TO ANOTHER
         public void TransferFunds(BankAccount recipient, decimal amount, DateTime date, string note)
         {
             foreach (var account in AllBankAccounts)
@@ -91,18 +76,23 @@ namespace MyBank
                 }
             }
         }
-
-        public void GetTransactionDetails()
+        //TO GET CUSTOMER TRANSACTION DETAILS
+        public void GetTransactionDetails(int customerAccountNumber)
         {
             foreach (var transction in AllTransactions)
             {
-                Console.WriteLine($"{transction.AccountType}\t {transction.AccountNumber}\t {transction.CustomerFullName}\t {transction.Amount}\t {transction.Note}\t {transction.Date} ");
+                if (transction.AccountNumber == customerAccountNumber)
+                {
+                    Console.WriteLine($"{transction.AccountType}\t {transction.AccountNumber}\t {transction.CustomerFullName}\t {transction.Amount}\t {transction.Note}\t {transction.Date} ");
+                }
             }
         }
         public void GetAccountBalance()
         {
             Console.WriteLine($"You have {AccountBalance} left in your account {AccountNumber}");
         }
+
+        //TO CHECK IF A BANK ACCOUNT EXIST
         public static bool bankAccountExists(string accountNumberstring)
         {
             bool bankAccountExist = false;
@@ -123,6 +113,7 @@ namespace MyBank
 
             return bankAccountExist;
         }
+        //TO RETURN A CUSTOMER'S BANK ACCOUNT
         public static BankAccount GetBankAccount(int accountNumber)
         {
             BankAccount customerBankAccount = null;
@@ -133,6 +124,5 @@ namespace MyBank
            }
             return customerBankAccount;
         }
-
     }
 }

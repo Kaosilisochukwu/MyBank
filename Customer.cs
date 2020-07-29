@@ -23,7 +23,7 @@ namespace MyBank
         public string Email { get; set; }
         public int CustomerId { get; }
 
-
+        //TO CHECK IF A CUSTOMER EXIST
         public static bool customerExists(int id, string email)
         {
             bool customerExist = false;
@@ -38,7 +38,7 @@ namespace MyBank
             }
             return customerExist;
         }
-
+        //TO RETURN A REGISTERED CUSTOMERS
         public static Customer GetCurrentCustomer(int id, string email)
         {
             Customer currentCustomer = null;

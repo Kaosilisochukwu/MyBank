@@ -13,6 +13,7 @@ namespace MyBank
             Console.WriteLine("*  Welcome to the International Bank of Rivendell, Middle Earth. How Can We help you today?  *");
             Console.WriteLine("**********************************************************************************************");
             Register:
+            //Code to register a customer
             Console.ForegroundColor = ConsoleColor.Blue;            
             Console.WriteLine("\t\tTo Register an account, press 'R'\n\t\tTo log into an existing account press 'L'\n\t\tTo exit type 'E'");
             string registerChoice = Console.ReadLine().ToLower();
@@ -32,13 +33,16 @@ namespace MyBank
             else if(registerChoice == "l")
             {
                 LoginDetails:
+                //To login
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Please type in your valid login Id and Email to login or 'E' to exit");
-                Console.WriteLine("\t\t\tEmail: ");
+                Console.WriteLine("**************************************************************************");
+                Console.WriteLine("*  Please type in your valid login Id and Email to login or 'E' to exit  *");
+                Console.WriteLine("**************************************************************************");
+                Console.WriteLine("\t\t\tEnter your Email: ");
                 string customerEmail = Console.ReadLine();
                 if (customerEmail.ToLower() == "e")
                     goto Register;
-                Console.WriteLine("\t\t\tYour UserId: ");
+                Console.WriteLine("\t\t\tEnter your UserId: ");
                 bool idIsANumber = int.TryParse(Console.ReadLine(), out int custormerId);
                 bool customerExist = Customer.customerExists(custormerId, customerEmail);
                 while (!customerExist)
@@ -57,7 +61,7 @@ namespace MyBank
                     AccountType:
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.WriteLine("Account type: ");
-                    Console.WriteLine("\tfor savings account, type 'S'\n\tfor current account, type 'C'\n\tto exit, type 'E'");
+                    Console.WriteLine("\tfor savings account, type 'S'\n\tfor current account, type 'C'\n\tto logout, type 'E'");
                     string input = Console.ReadLine().ToLower();
                     string accountType = input == "s" ? "savings"
                                          : input == "c" ? "current"
@@ -68,19 +72,30 @@ namespace MyBank
                         goto ActionCenter;
                     InitialDeposit:
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("Initial Deposit: \n\t1000 and above for current account\n\t100 and above for savings account\n\tType '0' to exit");
+                    Console.WriteLine("Initial Deposit: \n\t1000 and above for current account\n\t100 and above for savings account\n\tType '0' to logout");
                     decimal initalDeposit;
                     bool isDecimal = decimal.TryParse(Console.ReadLine(), out initalDeposit);
                     if (isDecimal)
                     {
                         if (initalDeposit == 0)
+                        {
+                            Console.WriteLine("\t\t***********************************");
+                            Console.WriteLine("\t\t*  Please enter the right amount  *");
+                            Console.WriteLine("\t\t***********************************");
                             goto ActionCenter;
+                        }                    
                         if (accountType == "savings" && initalDeposit < 100)
                         {
+                            Console.WriteLine("\t\t***********************************");
+                            Console.WriteLine("\t\t*  Please enter the right amount  *");
+                            Console.WriteLine("\t\t***********************************");
                             goto InitialDeposit;
                         }
                         else if (accountType == "current" && initalDeposit < 1000)
                         {
+                            Console.WriteLine("\t\t***********************************");
+                            Console.WriteLine("\t\t*  Please enter the right amount  *");
+                            Console.WriteLine("\t\t***********************************");
                             goto InitialDeposit;
                         }
                     }
@@ -98,7 +113,9 @@ namespace MyBank
                 {
                     DepositPoint:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Please enter a minimum of '50'  or 'E' to exit");
+                    Console.WriteLine("*****************************************************");
+                    Console.WriteLine("*  Please enter a minimum of '50'  or 'E' to logout *");
+                    Console.WriteLine("*****************************************************");
                     decimal depositAmount = 0;
                     string depositAmountString = Console.ReadLine();
                     if (depositAmountString.ToLower() == "e")
@@ -106,7 +123,9 @@ namespace MyBank
                     if (decimal.TryParse(depositAmountString, out depositAmount) && depositAmount >= 50)
                     {
                         DepositAccountNumber:
-                        Console.WriteLine("Please enter your account number or type 'E'  to exit");
+                        Console.WriteLine("*************************************************************");
+                        Console.WriteLine("*  Please enter your account number or type 'E'  to logout  *");
+                        Console.WriteLine("*************************************************************");
                         string bankAccountString = Console.ReadLine();
                         if (bankAccountString.ToLower() == "e")
                             goto ActionCenter;
@@ -119,7 +138,9 @@ namespace MyBank
                         customerBankAccount.MakeDeposite(customerBankAccount, depositAmount, DateTime.Now, note);
                         Console.WriteLine($"Transaction successful");
                         Console.WriteLine($"You now have {customerBankAccount.AccountBalance} in your {customerBankAccount.AccountNumber} account.");
-                        Console.WriteLine("Do you want to perform another transaction?");
+                        Console.WriteLine("*************************************************");
+                        Console.WriteLine("*  Do you want to perform another transaction?  *");
+                        Console.WriteLine("*************************************************");
                         goto ActionCenter;
                     }
                     else
@@ -129,7 +150,9 @@ namespace MyBank
                 {
                     WithdrawalPoint:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Please enter a valid amount to withdraw or 'E' to exit");
+                    Console.WriteLine("**************************************************************");
+                    Console.WriteLine("*  Please enter a valid amount to withdraw or 'E' to logout  *");
+                    Console.WriteLine("**************************************************************");
                     decimal withdrawalAmount = 0;
                     string withdrawalAmountString = Console.ReadLine();
                     if (withdrawalAmountString.ToLower() == "e")
@@ -137,7 +160,9 @@ namespace MyBank
                     if (decimal.TryParse(withdrawalAmountString, out withdrawalAmount))
                     {
                         WithdrawalAccountNumber:
-                        Console.WriteLine("Please enter your account number or type 'E'  to exit");
+                        Console.WriteLine("********************************************************************************************");
+                        Console.WriteLine("*  Please enter your account number or type 'E' to logout and then 'O' to open an account  *");
+                        Console.WriteLine("********************************************************************************************");
                         string bankAccountString = Console.ReadLine();
                         if (bankAccountString.ToLower() == "e")
                             goto ActionCenter;
@@ -156,7 +181,9 @@ namespace MyBank
                         customerBankAccount.MakeWithdrawal(customerBankAccount, withdrawalAmount, DateTime.Now, note);
                         Console.WriteLine($"Transaction successful");
                         Console.WriteLine($"You now have {customerBankAccount.AccountBalance} in your {customerBankAccount.AccountNumber} account.");
-                        Console.WriteLine("Do you want to perform another transaction?");
+                        Console.WriteLine("*************************************************");
+                        Console.WriteLine("*  Do you want to perform another transaction?  *");
+                        Console.WriteLine("*************************************************");
                         goto ActionCenter;
                     }
                     else
@@ -166,7 +193,9 @@ namespace MyBank
                 {
                     TranferPoint:
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Please enter a valid amount to withdraw or 'E' to exit");
+                    Console.WriteLine("**************************************************************");
+                    Console.WriteLine("*  Please enter a valid amount to withdraw or 'E' to logout  *");
+                    Console.WriteLine("**************************************************************");
                     decimal withdrawalAmount = 0;
                     string withdrawalAmountString = Console.ReadLine();
                     if (withdrawalAmountString.ToLower() == "e")
@@ -175,7 +204,9 @@ namespace MyBank
                     {
                         BenefactorAccountNumber:
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine("Please enter your account number or type 'E'  to exit");
+                        Console.WriteLine("*************************************************************");
+                        Console.WriteLine("*  Please enter your account number or type 'E'  to logout  *");
+                        Console.WriteLine("*************************************************************");
                         string bankAccountString = Console.ReadLine();
                         if (bankAccountString.ToLower() == "e")
                             goto ActionCenter;
@@ -191,9 +222,10 @@ namespace MyBank
                         }
                         Console.WriteLine("Please enter a note for this transaction");
                         string note = Console.ReadLine();
-                        //benefactorBankAccount.MakeWithdrawal(benefactorBankAccount, withdrawalAmount, DateTime.Now, note);
-                        ReceiverPoint: 
-                        Console.WriteLine("Please enter your receiver account number or type 'E'  to exit");
+                        ReceiverPoint:
+                        Console.WriteLine("*************************************************************");
+                        Console.WriteLine("*  Please enter your account number or type 'E'  to logout  *");
+                        Console.WriteLine("*************************************************************");
                         string receiverBankAccountString = Console.ReadLine();
                         if (bankAccountString.ToLower() == "e")
                             goto ActionCenter;
@@ -204,7 +236,9 @@ namespace MyBank
                         benefactorBankAccount.TransferFunds(receiverBankAccount, withdrawalAmount, DateTime.Now, note);
                         Console.WriteLine($"Transaction successful");
                         Console.WriteLine($"You now have {benefactorBankAccount.AccountBalance} in your {benefactorBankAccount.AccountNumber} account.");
-                        Console.WriteLine("Do you want to perform another transaction?");
+                        Console.WriteLine("*************************************************");
+                        Console.WriteLine("*  Do you want to perform another transaction?  *");
+                        Console.WriteLine("*************************************************");
                         goto ActionCenter;
                     }
                     else
@@ -214,7 +248,9 @@ namespace MyBank
                 {
                     CustomerAccountNumber:
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Please enter your account number or type 'E'  to exit");
+                    Console.WriteLine("*************************************************************");
+                    Console.WriteLine("*  Please enter your account number or type 'E'  to logout  *");
+                    Console.WriteLine("*************************************************************");
                     string bankAccountString = Console.ReadLine();
                     if (bankAccountString.ToLower() == "e")
                         goto ActionCenter;
@@ -223,14 +259,18 @@ namespace MyBank
                         goto CustomerAccountNumber;
                     BankAccount customerBankAccount = BankAccount.GetBankAccount(int.Parse(bankAccountString));
                     customerBankAccount.GetAccountBalance();
-                    Console.WriteLine("Do you want to perform another transaction?");
+                    Console.WriteLine("*************************************************");
+                    Console.WriteLine("*  Do you want to perform another transaction?  *");
+                    Console.WriteLine("*************************************************");
                     goto ActionCenter;
                 }
                 else if (choice.ToLower() == "g")
                 {
                     CustomerAccountNumber:
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Please enter your account number or type 'E'  to exit");
+                    Console.WriteLine("***********************************************************");
+                    Console.WriteLine("*  Please enter your account number or type 'E'  to exit  *");
+                    Console.WriteLine("***********************************************************");
                     string bankAccountString = Console.ReadLine();
                     if (bankAccountString.ToLower() == "e")
                         goto ActionCenter;
@@ -238,8 +278,10 @@ namespace MyBank
                     if (!bankAccountExist)
                         goto CustomerAccountNumber;
                     BankAccount customerBankAccount = BankAccount.GetBankAccount(int.Parse(bankAccountString));
-                    customerBankAccount.GetTransactionDetails();
-                    Console.WriteLine("Do you want to perform another transaction?");
+                    customerBankAccount.GetTransactionDetails(customerBankAccount.AccountNumber);
+                    Console.WriteLine("*************************************************");
+                    Console.WriteLine("*  Do you want to perform another transaction?  *");
+                    Console.WriteLine("*************************************************");
                     goto ActionCenter;
                 }
                 else if (choice.ToLower() == "e")
