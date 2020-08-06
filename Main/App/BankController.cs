@@ -54,8 +54,6 @@ namespace MyBank
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\t\tTo create an account, press 'O'\n\t\tTo make deposit type 'D'\n\t\tTo make Withdrawal, type 'W'\n\t\tTo transfer Funds, type 'T'\n\t\tTo check your balance, type 'C'\n\t\tTo get transaction Details type 'G'\n\t\tTo logout, type 'E'");
                 string choice = Console.ReadLine();
-                if (choice.ToLower() == "e")
-                    goto End;
                 if(choice.ToLower() == "o")
                 {
                     AccountType:

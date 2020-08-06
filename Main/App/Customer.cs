@@ -38,7 +38,7 @@ namespace MyBank
             }
             return customerExist;
         }
-        //TO RETURN A REGISTERED CUSTOMERS
+        //TO RETURN A REGISTERED CUSTOMER
         public static Customer GetCurrentCustomer(int id, string email)
         {
             Customer currentCustomer = null;

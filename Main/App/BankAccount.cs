@@ -47,7 +47,7 @@ namespace MyBank
             }
         }
 
-        //TO PRING ALL CUSTOMERS TO THE CONSOLE
+        //TO PRINT ALL CUSTOMERS TO THE CONSOLE
         public static void GetAllCustomers()
         {
             foreach (var customer in AllCustomers)
