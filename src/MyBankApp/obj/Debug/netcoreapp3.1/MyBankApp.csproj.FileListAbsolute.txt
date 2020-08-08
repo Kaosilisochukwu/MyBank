@@ -1,0 +1,13 @@
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\bin\Debug\netcoreapp3.1\MyBankApp.exe
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\bin\Debug\netcoreapp3.1\MyBankApp.deps.json
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\bin\Debug\netcoreapp3.1\MyBankApp.runtimeconfig.json
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\bin\Debug\netcoreapp3.1\MyBankApp.runtimeconfig.dev.json
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\bin\Debug\netcoreapp3.1\MyBankApp.dll
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\bin\Debug\netcoreapp3.1\MyBankApp.pdb
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.csprojAssemblyReference.cache
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.AssemblyInfoInputs.cache
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.AssemblyInfo.cs
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.csproj.CoreCompileInputs.cache
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.dll
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.pdb
+C:\Users\hp\Documents\Progamming\C#\MyBank\src\MyBankApp\obj\Debug\netcoreapp3.1\MyBankApp.genruntimeconfig.cache
