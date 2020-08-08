@@ -42,9 +42,15 @@ namespace MyBankApp
             }
             return customerExist;
         }
+<<<<<<< HEAD:src/MyBankApp/ClassLibrary/Customer.cs
+
        
         //TO RETURN A REGISTERED CUSTOMERS
         public static Customer GetCurrentCustomer(string password, string email)
+=======
+        //TO RETURN A REGISTERED CUSTOMER
+        public static Customer GetCurrentCustomer(int id, string email)
+>>>>>>> 18c10dda94ad8599e5721bd63b950470415509a1:Main/App/Customer.cs
         {
             Customer currentCustomer = null;
             foreach (var customer in AllCustomers)

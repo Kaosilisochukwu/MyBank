@@ -63,8 +63,11 @@ namespace MyBankApp
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\t\tTo create an account, press 'O'\n\t\tTo make deposit type 'D'\n\t\tTo make Withdrawal, type 'W'\n\t\tTo transfer Funds, type 'T'\n\t\tTo check your balance, type 'C'\n\t\tTo get transaction Details type 'G'\n\t\tTo logout, type 'E'");
                 string choice = Console.ReadLine();
+<<<<<<< HEAD:src/MyBankApp/BankController.cs
                 if (choice.ToLower() == "e")
                     goto Register;
+=======
+>>>>>>> 18c10dda94ad8599e5721bd63b950470415509a1:Main/App/BankController.cs
                 if(choice.ToLower() == "o")
                 {
                     AccountType:
@@ -126,15 +129,106 @@ namespace MyBankApp
                 }
                 else if (choice.ToLower() == "w")
                 {
-                    string nextAction = ProcessTransactions.ProcessWithdrawal(currentCustomer);
-                    if (nextAction == "e")
+                    WithdrawalPoint:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("*******************************************************************************");
+                    Console.WriteLine("*  Please enter a valid amount to withdraw or 'E' to Return to previous Menu  *");
+                    Console.WriteLine("*******************************************************************************");
+                    decimal withdrawalAmount = 0;
+                    string withdrawalAmountString = Console.ReadLine();
+                    if (withdrawalAmountString.ToLower() == "e")
                         goto ActionCenter;
+                    if (decimal.TryParse(withdrawalAmountString, out withdrawalAmount))
+                    {
+                        WithdrawalAccountNumber:
+                        Console.WriteLine("*************************************************************************************************************");
+                        Console.WriteLine("*  Please enter your account number or type 'E' to Return to previous Menu and then 'O' to open an account  *");
+                        Console.WriteLine("*************************************************************************************************************");
+                        string bankAccountString = Console.ReadLine();
+                        if (bankAccountString.ToLower() == "e")
+                            goto ActionCenter;
+                        bool bankAccountExist = BankAccount.bankAccountExists(bankAccountString);
+                        if (!bankAccountExist)
+                            goto WithdrawalAccountNumber;
+                        BankAccount customerBankAccount = BankAccount.GetBankAccount(int.Parse(bankAccountString));
+                        decimal maximumWithdrawalAmount = customerBankAccount.AccountType == "savings" ? customerBankAccount.AccountBalance - 100 : customerBankAccount.AccountBalance;
+                        if (maximumWithdrawalAmount < withdrawalAmount)
+                        {
+                            Console.WriteLine($"You can only make a maximum withdrawal of {maximumWithdrawalAmount}");
+                            goto WithdrawalPoint;
+                        }
+                        Console.WriteLine("Please enter a note for this transaction");
+                        string note = Console.ReadLine();
+                        customerBankAccount.MakeWithdrawal(customerBankAccount, withdrawalAmount, DateTime.Now, note);
+                        Console.WriteLine($"Transaction successful");
+                        Console.WriteLine($"You now have {customerBankAccount.AccountBalance} in your {customerBankAccount.AccountNumber} account.");
+                        Console.WriteLine("*************************************************");
+                        Console.WriteLine("*  Do you want to perform another transaction?  *");
+                        Console.WriteLine("*************************************************");
+                        goto ActionCenter;
+                    }
+                    else
+                        goto WithdrawalPoint;
                 }
                 else if (choice.ToLower() == "t")
                 {
-                    string nextAction = ProcessTransactions.ProcessTransfer(currentCustomer);
-                    if (nextAction == "e")
+                    TranferPoint:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("************************************************************************************");
+                    Console.WriteLine("*  Please enter the amount you want to Transfer or 'E' to Return to previous Menu  *");
+                    Console.WriteLine("************************************************************************************");
+                    decimal withdrawalAmount = 0;
+                    string withdrawalAmountString = Console.ReadLine();
+                    if (withdrawalAmountString.ToLower() == "e")
                         goto ActionCenter;
+                    if (decimal.TryParse(withdrawalAmountString, out withdrawalAmount))
+                    {
+                        BenefactorAccountNumber:
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine("******************************************************************************");
+                        Console.WriteLine("*  Please enter your account number or type 'E'  to Return to previous Menu  *");
+                        Console.WriteLine("******************************************************************************");
+                        string bankAccountString = Console.ReadLine();
+                        if (bankAccountString.ToLower() == "e")
+                            goto ActionCenter;
+                        bool bankAccountExist = BankAccount.bankAccountExists(bankAccountString);
+                        if (!bankAccountExist)
+                            goto BenefactorAccountNumber;
+                        BankAccount benefactorBankAccount = BankAccount.GetBankAccount(int.Parse(bankAccountString));
+                        decimal maximumWithdrawalAmount = benefactorBankAccount.AccountType == "savings" ? benefactorBankAccount.AccountBalance - 100 : benefactorBankAccount.AccountBalance;
+                        if (maximumWithdrawalAmount < withdrawalAmount)
+                        {
+                            Console.WriteLine($"You can only make a maximum withdrawal of {maximumWithdrawalAmount}");
+                            goto TranferPoint;
+                        }
+                        Console.WriteLine("Please enter a note for this transaction");
+                        string note = Console.ReadLine();
+                        ReceiverPoint:
+                        Console.WriteLine("************************************************************************************");
+                        Console.WriteLine("*  Please enter reciever's account number or type 'E'  to Return to previous Menu  *");
+                        Console.WriteLine("************************************************************************************");
+                        string receiverBankAccountString = Console.ReadLine();
+                        if (bankAccountString.ToLower() == "e")
+                            goto ActionCenter;
+                        bool receiverankAccountExist = BankAccount.bankAccountExists(bankAccountString);
+                        if (!receiverankAccountExist)
+                            goto ReceiverPoint;
+                        if(bankAccountString == receiverBankAccountString)
+                        {
+                            Console.WriteLine("Invalid transaction");
+                            goto TranferPoint;
+                        }
+                        BankAccount receiverBankAccount = BankAccount.GetBankAccount(int.Parse(receiverBankAccountString));
+                        benefactorBankAccount.TransferFunds(receiverBankAccount, withdrawalAmount, DateTime.Now, note);
+                        Console.WriteLine($"Transaction successful");
+                        Console.WriteLine($"You now have {benefactorBankAccount.AccountBalance} in your {benefactorBankAccount.AccountNumber} account.");
+                        Console.WriteLine("*************************************************");
+                        Console.WriteLine("*  Do you want to perform another transaction?  *");
+                        Console.WriteLine("*************************************************");
+                        goto ActionCenter;
+                    }
+                    else
+                        goto TranferPoint;
                 }
                 else if (choice.ToLower() == "c")
                 {
